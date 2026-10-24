@@ -1,5 +1,7 @@
 # sdd-taskanalyzer
 
+[![CI](https://github.com/Renatatxr19/sdd-taskanalyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/Renatatxr19/sdd-taskanalyzer/actions/workflows/ci.yml)
+
 Módulo Python de análise de tarefas e produtividade, desenvolvido com **Spec-Driven Development (SDD)**
 e código gerado por IA sob governança (`CONTEXT_RULES.md`) e homologação humana.
 
@@ -12,6 +14,10 @@ sdd-taskanalyzer/
 ├── CONTEXT_RULES.md
 ├── requirements.txt
 ├── .gitignore
+├── .dockerignore
+├── Dockerfile
+├── docker-compose.yml
+├── .github/workflows/ci.yml
 ├── specs/task_analyzer_spec.md
 ├── tests/test_harness.py
 └── src/task_analyzer.py
@@ -26,6 +32,20 @@ pip install -r requirements.txt
 pytest -v                       # roda o Test Harness
 pytest --cov=src --cov-report=term-missing
 ```
+
+## Executar com Docker
+Requer Docker com Compose v2.
+```bash
+docker compose run --rm tests        # roda toda a suíte com um único comando
+# ou, sem compose:
+docker build -t sdd-taskanalyzer .
+docker run --rm sdd-taskanalyzer
+```
+
+## CI/CD
+O workflow `.github/workflows/ci.yml` roda a cada push ou Pull Request em `main` e `develop`:
+Ubuntu, Python 3.11, instalação via `requirements.txt`, `pytest tests/test_harness.py -v` e
+verificação de cobertura mínima de 90%.
 
 ## Exemplo de uso
 ```python
@@ -43,4 +63,4 @@ print(analyze_tasks([t]))
 ```
 
 ## Status
-Fase 2: 43 testes, 100% aprovados, 100% de cobertura de `src/task_analyzer.py`.
+Fase 3: 43 testes, 100% aprovados, 100% de cobertura de `src/task_analyzer.py`; CI e Docker configurados.
